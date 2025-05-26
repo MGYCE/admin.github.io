@@ -1,143 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Birth Certificate Maker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f0f0f0;
-    }
-    h1 {
-      text-align: center;
-    }
-    form {
-      background: white;
-      padding: 20px;
-      max-width: 400px;
-      margin: 0 auto 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px;
-      width: 100%;
-      background: #007BFF;
-      border: none;
-      color: white;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-    .certificate {
-      max-width: 500px;
-      margin: 0 auto;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      border: 2px solid #007BFF;
-      text-align: center;
-    }
-    .certificate h2 {
-      margin-bottom: 10px;
-      color: #007BFF;
-    }
-    .certificate p {
-      font-size: 18px;
-      margin: 5px 0;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simple Aadhaar Card Maker (Demo)</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  h1 {
+    color: #1a73e8;
+  }
+  form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px #ccc;
+    width: 320px;
+    margin-bottom: 30px;
+  }
+  label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: bold;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+  }
+  button {
+    margin-top: 15px;
+    width: 100%;
+    background: #1a73e8;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  button:hover {
+    background: #1669c1;
+  }
+  .aadhaar-card {
+    width: 350px;
+    background: #fff;
+    border: 2px solid #1a73e8;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 12px #888;
+  }
+  .aadhaar-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  .aadhaar-logo {
+    width: 60px;
+    margin-right: 15px;
+  }
+  .aadhaar-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #1a73e8;
+  }
+  .aadhaar-photo {
+    width: 80px;
+    height: 100px;
+    background: #ddd;
+    border: 1px solid #aaa;
+    margin-bottom: 15px;
+    object-fit: cover;
+  }
+  .aadhaar-info {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .aadhaar-info b {
+    display: inline-block;
+    width: 110px;
+  }
+  .aadhaar-footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
 
-  <h1>Birth Certificate Maker</h1>
+<h1>Aadhaar Card Maker (Demo)</h1>
 
-  <form id="birthForm">
-    <label for="fullName">Full Name</label>
-    <input type="text" id="fullName" required />
+<form id="aadhaarForm">
+  <label for="name">Full Name</label>
+  <input type="text" id="name" required placeholder="Enter your full name" />
 
-    <label for="dob">Date of Birth</label>
-    <input type="date" id="dob" required />
+  <label for="aadhaar">Aadhaar Number</label>
+  <input type="text" id="aadhaar" pattern="\d{12}" maxlength="12" required placeholder="12 digit Aadhaar number" />
 
-    <label for="placeOfBirth">Place of Birth</label>
-    <input type="text" id="placeOfBirth" required />
+  <label for="dob">Date of Birth</label>
+  <input type="date" id="dob" required />
 
-    <label for="gender">Gender</label>
-    <select id="gender" required>
-      <option value="">Select Gender</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      <option value="Other">Other</option>
-    </select>
+  <label for="address">Address</label>
+  <textarea id="address" rows="3" required placeholder="Enter your address"></textarea>
 
-    <label for="fatherName">Father's Name</label>
-    <input type="text" id="fatherName" required />
+  <label for="photo">Upload Photo (optional)</label>
+  <input type="file" id="photo" accept="image/*" />
 
-    <label for="motherName">Mother's Name</label>
-    <input type="text" id="motherName" required />
+  <button type="submit">Generate Aadhaar Card</button>
+</form>
 
-    <button type="submit">Generate Certificate</button>
-  </form>
-
-  <div id="certificate" class="certificate" style="display:none;">
-    <h2>Birth Certificate</h2>
-    <p><strong>Name:</strong> <span id="certName"></span></p>
-    <p><strong>Date of Birth:</strong> <span id="certDOB"></span></p>
-    <p><strong>Place of Birth:</strong> <span id="certPlace"></span></p>
-    <p><strong>Gender:</strong> <span id="certGender"></span></p>
-    <p><strong>Father's Name:</strong> <span id="certFather"></span></p>
-    <p><strong>Mother's Name:</strong> <span id="certMother"></span></p>
+<div id="aadhaarCard" class="aadhaar-card" style="display:none;">
+  <div class="aadhaar-header">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Emblem_of_India.svg/120px-Emblem_of_India.svg.png" alt="Indian Emblem" class="aadhaar-logo" />
+    <div class="aadhaar-title">Unique Identification Authority of India<br /><small>Aadhaar Card</small></div>
   </div>
+  <img id="cardPhoto" src="" alt="Photo" class="aadhaar-photo" style="display:none;" />
+  <div class="aadhaar-info">
+    <div><b>Name:</b> <span id="cardName"></span></div>
+    <div><b>Aadhaar No:</b> <span id="cardNumber"></span></div>
+    <div><b>Date of Birth:</b> <span id="cardDOB"></span></div>
+    <div><b>Address:</b> <span id="cardAddress"></span></div>
+  </div>
+  <div class="aadhaar-footer">This is a demo Aadhaar card created for educational purposes only.</div>
+</div>
 
-  <script>
-    const form = document.getElementById('birthForm');
-    const certificate = document.getElementById('certificate');
+<script>
+  const form = document.getElementById('aadhaarForm');
+  const aadhaarCard = document.getElementById('aadhaarCard');
+  const cardName = document.getElementById('cardName');
+  const cardNumber = document.getElementById('cardNumber');
+  const cardDOB = document.getElementById('cardDOB');
+  const cardAddress = document.getElementById('cardAddress');
+  const cardPhoto = document.getElementById('cardPhoto');
+  const photoInput = document.getElementById('photo');
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
 
-      // Collect values
-      const fullName = document.getElementById('fullName').value;
-      const dob = document.getElementById('dob').value;
-      const placeOfBirth = document.getElementById('placeOfBirth').value;
-      const gender = document.getElementById('gender').value;
-      const fatherName = document.getElementById('fatherName').value;
-      const motherName = document.getElementById('motherName').value;
+    const name = document.getElementById('name').value.trim();
+    const aadhaar = document.getElementById('aadhaar').value.trim();
+    const dob = document.getElementById('dob').value;
+    const address = document.getElementById('address').value.trim();
 
-      // Display on certificate
-      document.getElementById('certName').textContent = fullName;
-      document.getElementById('certDOB').textContent = new Date(dob).toLocaleDateString();
-      document.getElementById('certPlace').textContent = placeOfBirth;
-      document.getElementById('certGender').textContent = gender;
-      document.getElementById('certFather').textContent = fatherName;
-      document.getElementById('certMother').textContent = motherName;
+    if (!name || !aadhaar || !dob || !address) {
+      alert('Please fill all required fields.');
+      return;
+    }
 
-      // Show certificate
-      certificate.style.display = 'block';
+    // Format DOB to DD-MM-YYYY
+    const dateObj = new Date(dob);
+    const formattedDOB = ('0' + dateObj.getDate()).slice(-2) + '-' + ('0' + (dateObj.getMonth() + 1)).slice(-2) + '-' + dateObj.getFullYear();
 
-      // Optionally scroll to certificate
-      certificate.scrollIntoView({ behavior: 'smooth' });
-    });
-  </script>
+    cardName.textContent = name;
+    cardNumber.textContent = aadhaar.replace(/(\d{4})(?=\d)/g, '$1 ');
+    cardDOB.textContent = formattedDOB;
+    cardAddress.textContent = address.replace(/\n/g, ', ');
+
+    // Handle photo display
+    const file = photoInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        cardPhoto.src = e.target.result;
+        cardPhoto.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      cardPhoto.style.display = 'none';
+      cardPhoto.src = '';
+    }
+
+    aadhaarCard.style.display = 'block';
+    window.scrollTo({ top: aadhaarCard.offsetTop, behavior: 'smooth' });
+  });
+</script>
 
 </body>
 </html>
