@@ -1,172 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CRS Birth Certificate Maker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f5f5f5;
-    }
-
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-
-    form {
-      max-width: 500px;
-      margin: 0 auto 30px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      font-size: 1rem;
-    }
-
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      background: #3498db;
-      color: white;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #2980b9;
-    }
-
-    #certificate {
-      max-width: 600px;
-      margin: 0 auto;
-      background: white;
-      padding: 30px;
-      border: 2px solid #2c3e50;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      display: none;
-    }
-
-    #certificate h2 {
-      text-align: center;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      color: #2c3e50;
-      border-bottom: 2px solid #2c3e50;
-      padding-bottom: 10px;
-    }
-
-    #certificate p {
-      font-size: 1.1rem;
-      line-height: 1.5;
-      margin: 8px 0;
-    }
-
-    #seal {
-      margin-top: 30px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.1rem;
-      color: #2c3e50;
-      letter-spacing: 2px;
-      border-top: 2px solid #2c3e50;
-      padding-top: 15px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admit Card Maker</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  .container {
+    max-width: 600px;
+    margin: auto;
+  }
+  h1 {
+    text-align: center;
+  }
+  label {
+    display: block;
+    margin-top: 15px;
+  }
+  input[type="text"], input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  #admitCard {
+    margin-top: 30px;
+    border: 2px solid #000;
+    padding: 20px;
+    display: none;
+  }
+  #admitCard h2 {
+    text-align: center;
+    text-decoration: underline;
+  }
+  .card-row {
+    margin: 10px 0;
+  }
+</style>
 </head>
 <body>
-  <h1>CRS Birth Certificate Maker</h1>
+  <div class="container">
+    <h1>Admit Card Maker</h1>
+    <form id="admitForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" required />
 
-  <form id="birthForm">
-    <label for="childName">Child's Full Name:</label>
-    <input type="text" id="childName" name="childName" required />
+      <label for="roll">Roll Number:</label>
+      <input type="text" id="roll" required />
 
-    <label for="dob">Date of Birth:</label>
-    <input type="date" id="dob" name="dob" required />
+      <label for="examDate">Exam Date:</label>
+      <input type="date" id="examDate" required />
 
-    <label for="placeOfBirth">Place of Birth:</label>
-    <input type="text" id="placeOfBirth" name="placeOfBirth" required />
+      <label for="center">Exam Center:</label>
+      <input type="text" id="center" required />
 
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender" required>
-      <option value="" disabled selected>Select Gender</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      <option value="Other">Other</option>
-    </select>
+      <button type="submit">Generate Admit Card</button>
+    </form>
 
-    <label for="fatherName">Father's Full Name:</label>
-    <input type="text" id="fatherName" name="fatherName" required />
-
-    <label for="motherName">Mother's Full Name:</label>
-    <input type="text" id="motherName" name="motherName" required />
-
-    <button type="submit">Generate Certificate</button>
-  </form>
-
-  <div id="certificate">
-    <h2>Birth Certificate</h2>
-    <p><strong>Child's Name:</strong> <span id="certChildName"></span></p>
-    <p><strong>Date of Birth:</strong> <span id="certDOB"></span></p>
-    <p><strong>Place of Birth:</strong> <span id="certPlaceOfBirth"></span></p>
-    <p><strong>Gender:</strong> <span id="certGender"></span></p>
-    <p><strong>Father's Name:</strong> <span id="certFatherName"></span></p>
-    <p><strong>Mother's Name:</strong> <span id="certMotherName"></span></p>
-
-    <div id="seal">Official Seal</div>
+    <div id="admitCard">
+      <h2>Admit Card</h2>
+      <div class="card-row"><strong>Name:</strong> <span id="cardName"></span></div>
+      <div class="card-row"><strong>Roll Number:</strong> <span id="cardRoll"></span></div>
+      <div class="card-row"><strong>Exam Date:</strong> <span id="cardExamDate"></span></div>
+      <div class="card-row"><strong>Exam Center:</strong> <span id="cardCenter"></span></div>
+      <button id="printBtn">Print Admit Card</button>
+    </div>
   </div>
 
-  <script>
-    document.getElementById('birthForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+<script>
+  const form = document.getElementById('admitForm');
+  const admitCard = document.getElementById('admitCard');
+  const cardName = document.getElementById('cardName');
+  const cardRoll = document.getElementById('cardRoll');
+  const cardExamDate = document.getElementById('cardExamDate');
+  const cardCenter = document.getElementById('cardCenter');
+  const printBtn = document.getElementById('printBtn');
 
-      // Get form values
-      const childName = document.getElementById('childName').value.trim();
-      const dob = document.getElementById('dob').value;
-      const placeOfBirth = document.getElementById('placeOfBirth').value.trim();
-      const gender = document.getElementById('gender').value;
-      const fatherName = document.getElementById('fatherName').value.trim();
-      const motherName = document.getElementById('motherName').value.trim();
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Get values
+    const name = document.getElementById('name').value.trim();
+    const roll = document.getElementById('roll').value.trim();
+    const examDate = document.getElementById('examDate').value;
+    const center = document.getElementById('center').value.trim();
 
-      // Format date to readable form (e.g. 26 May 2025)
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      const formattedDOB = new Date(dob).toLocaleDateString(undefined, options);
+    if(!name || !roll || !examDate || !center){
+      alert('Please fill all the fields');
+      return;
+    }
 
-      // Populate certificate fields
-      document.getElementById('certChildName').textContent = childName;
-      document.getElementById('certDOB').textContent = formattedDOB;
-      document.getElementById('certPlaceOfBirth').textContent = placeOfBirth;
-      document.getElementById('certGender').textContent = gender;
-      document.getElementById('certFatherName').textContent = fatherName;
-      document.getElementById('certMotherName').textContent = motherName;
-
-      // Show certificate
-      document.getElementById('certificate').style.display = 'block';
-
-      // Scroll to certificate
-      document.getElementById('certificate').scrollIntoView({ behavior: 'smooth' });
+    // Fill the admit card
+    cardName.textContent = name;
+    cardRoll.textContent = roll;
+    // Format date nicely
+    const formattedDate = new Date(examDate).toLocaleDateString(undefined, {
+      year: 'numeric', month: 'long', day: 'numeric'
     });
-  </script>
+    cardExamDate.textContent = formattedDate;
+    cardCenter.textContent = center;
+
+    // Show admit card
+    admitCard.style.display = 'block';
+    // Scroll to admit card
+    admitCard.scrollIntoView({behavior: 'smooth'});
+  });
+
+  printBtn.addEventListener('click', function(){
+    window.print();
+  });
+</script>
 </body>
 </html>
