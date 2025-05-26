@@ -38,10 +38,10 @@
 
     <select id="course-select">
       <option value="">-- Choose a Course --</option>
-      <option value="math">Mathematics</option>
-      <option value="physics">Physics</option>
-      <option value="chemistry">Chemistry</option>
-      <option value="english">English</option>
+      <option value="math">Batch-1</option>
+      <option value="physics">Batch-2</option>
+      <option value="chemistry">Batch-3</option>
+      <option value="english">Batch-4</option>
     </select>
 
     <button onclick="showExamDate()">Get Exam Date</button>
@@ -54,10 +54,10 @@
       const course = document.getElementById("course-select").value;
       const dateDisplay = document.getElementById("exam-date");
       let examDates = {
-        math: "June 10, 2025",
-        physics: "June 12, 2025",
-        chemistry: "June 14, 2025",
-        english: "June 16, 2025"
+        math: "May 25, 2025",
+        physics: "May 31, 2025",
+        chemistry: "June, 2025",
+        english: "June, 2025"
       };
 
       if (course && examDates[course]) {
