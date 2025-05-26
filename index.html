@@ -3,131 +3,115 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Student Registration Certificate Maker</title>
+<title>Exam Hall Ticket Maker</title>
 <style>
   body {
-    font-family: 'Arial', sans-serif;
-    background: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  .hall-ticket {
+    border: 2px solid #333;
+    width: 400px;
     padding: 20px;
+    margin-top: 20px;
   }
-  .container {
-    max-width: 700px;
-    margin: auto;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
-  }
-  h1 {
+  .hall-ticket h2 {
     text-align: center;
-    margin-bottom: 25px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hall-ticket img {
+    display: block;
+    margin: 0 auto 15px;
+    max-width: 120px;
+    border-radius: 5px;
+  }
+  .hall-ticket .details {
+    font-size: 16px;
+    line-height: 1.6;
   }
   label {
     display: block;
-    margin: 15px 0 5px;
+    margin-top: 15px;
+    font-weight: bold;
   }
-  input, select {
+  input[type="text"], input[type="file"], select {
     width: 100%;
-    padding: 8px 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 6px;
+    margin-top: 5px;
+    box-sizing: border-box;
   }
   button {
     margin-top: 20px;
-    width: 100%;
-    padding: 12px;
-    font-size: 1.1rem;
-    background: #2e86de;
-    border: none;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  button:hover {
-    background: #1b4f72;
-  }
-  .certificate {
-    margin-top: 40px;
-    padding: 30px;
-    border: 5px solid #2e86de;
-    border-radius: 15px;
-    background: #d6eaf8;
-    text-align: center;
-  }
-  .certificate h2 {
-    margin-bottom: 10px;
-  }
-  .certificate p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-  }
-  .bold {
-    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 16px;
   }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Student Registration Certificate Maker</h1>
+<h1>Exam Hall Ticket Maker</h1>
 
-  <form id="certForm">
-    <label for="studentName">Student Name:</label>
-    <input type="text" id="studentName" required />
+<form id="ticketForm">
+  <label for="studentName">Student Name:</label>
+  <input type="text" id="studentName" required />
 
-    <label for="studentId">Student ID:</label>
-    <input type="text" id="studentId" required />
+  <label for="studentID">Student ID:</label>
+  <input type="text" id="studentID" required />
 
-    <label for="course">Course:</label>
-    <input type="text" id="course" required />
+  <label for="examDate">Exam Date:</label>
+  <input type="text" id="examDate" placeholder="DD/MM/YYYY" required />
 
-    <label for="date">Registration Date:</label>
-    <input type="date" id="date" required />
+  <label for="examCenter">Exam Center:</label>
+  <input type="text" id="examCenter" required />
 
-    <button type="submit">Generate Certificate</button>
-  </form>
+  <label for="photo">Upload Photo:</label>
+  <input type="file" id="photo" accept="image/*" required />
 
-  <div id="certificate" class="certificate" style="display:none;">
-    <h2>Certificate of Registration</h2>
-    <p>This is to certify that <span class="bold" id="certStudentName"></span>, with Student ID <span class="bold" id="certStudentId"></span>,</p>
-    <p>has been officially registered for the course <span class="bold" id="certCourse"></span>.</p>
-    <p>Registration Date: <span class="bold" id="certDate"></span></p>
-    <br />
-    <p>______________________________</p>
-    <p>Registrar Signature</p>
+  <button type="submit">Generate Hall Ticket</button>
+</form>
+
+<div id="hallTicket" class="hall-ticket" style="display:none;">
+  <h2>Exam Hall Ticket</h2>
+  <img id="ticketPhoto" src="" alt="Student Photo" />
+  <div class="details">
+    <p><strong>Name:</strong> <span id="ticketName"></span></p>
+    <p><strong>Student ID:</strong> <span id="ticketID"></span></p>
+    <p><strong>Exam Date:</strong> <span id="ticketDate"></span></p>
+    <p><strong>Exam Center:</strong> <span id="ticketCenter"></span></p>
   </div>
 </div>
 
 <script>
-  document.getElementById('certForm').addEventListener('submit', function(e) {
+  const form = document.getElementById('ticketForm');
+  const hallTicket = document.getElementById('hallTicket');
+
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const name = document.getElementById('studentName').value.trim();
-    const id = document.getElementById('studentId').value.trim();
-    const course = document.getElementById('course').value.trim();
-    const date = document.getElementById('date').value;
+    // Get values from the form
+    const name = document.getElementById('studentName').value;
+    const studentID = document.getElementById('studentID').value;
+    const examDate = document.getElementById('examDate').value;
+    const examCenter = document.getElementById('examCenter').value;
+    const photoInput = document.getElementById('photo');
 
-    if (!name || !id || !course || !date) {
-      alert('Please fill all fields.');
-      return;
+    if (photoInput.files && photoInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        // Set the photo source
+        document.getElementById('ticketPhoto').src = event.target.result;
+        // Fill in the details
+        document.getElementById('ticketName').textContent = name;
+        document.getElementById('ticketID').textContent = studentID;
+        document.getElementById('ticketDate').textContent = examDate;
+        document.getElementById('ticketCenter').textContent = examCenter;
+
+        // Show the hall ticket
+        hallTicket.style.display = 'block';
+      };
+      reader.readAsDataURL(photoInput.files[0]);
     }
-
-    // Format date nicely
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = new Date(date).toLocaleDateString(undefined, options);
-
-    // Fill certificate details
-    document.getElementById('certStudentName').textContent = name;
-    document.getElementById('certStudentId').textContent = id;
-    document.getElementById('certCourse').textContent = course;
-    document.getElementById('certDate').textContent = formattedDate;
-
-    // Show certificate
-    document.getElementById('certificate').style.display = 'block';
-
-    // Optionally scroll to certificate
-    document.getElementById('certificate').scrollIntoView({ behavior: 'smooth' });
   });
 </script>
 
