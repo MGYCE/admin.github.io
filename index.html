@@ -7,115 +7,153 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    padding: 20px;
+    background: #f5f5f5;
   }
-  .container {
-    max-width: 600px;
+  .form-container, .admit-card-container {
+    max-width: 400px;
     margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
-  h1 {
+  h2 {
     text-align: center;
+    margin-bottom: 20px;
   }
   label {
     display: block;
-    margin-top: 15px;
+    margin-top: 10px;
   }
-  input[type="text"], input[type="date"] {
+  input[type="text"], input[type="file"] {
     width: 100%;
     padding: 8px;
-    margin-top: 5px;
+    margin-top: 4px;
     box-sizing: border-box;
   }
   button {
     margin-top: 20px;
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px;
     font-size: 16px;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
   }
-  #admitCard {
-    margin-top: 30px;
-    border: 2px solid #000;
+  button:hover {
+    background: #0056b3;
+  }
+  /* Admit card styles */
+  .admit-card {
+    border: 2px solid #007bff;
     padding: 20px;
-    display: none;
-  }
-  #admitCard h2 {
     text-align: center;
-    text-decoration: underline;
   }
-  .card-row {
-    margin: 10px 0;
+  .admit-card img {
+    width: 120px;
+    height: 140px;
+    object-fit: cover;
+    border: 2px solid #007bff;
+    margin-bottom: 15px;
+  }
+  .admit-card h3 {
+    margin-bottom: 10px;
+    color: #007bff;
+  }
+  .admit-card p {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    .admit-card, .admit-card * {
+      visibility: visible;
+    }
+    .admit-card {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      box-shadow: none;
+      border: none;
+    }
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Admit Card Maker</h1>
-    <form id="admitForm">
-      <label for="name">Full Name:</label>
-      <input type="text" id="name" required />
 
-      <label for="roll">Roll Number:</label>
-      <input type="text" id="roll" required />
+<div class="form-container">
+  <h2>Create Admit Card</h2>
+  <form id="admitForm">
+    <label for="studentName">Student Name</label>
+    <input type="text" id="studentName" required />
 
-      <label for="examDate">Exam Date:</label>
-      <input type="date" id="examDate" required />
+    <label for="rollNumber">Roll Number</label>
+    <input type="text" id="rollNumber" required />
 
-      <label for="center">Exam Center:</label>
-      <input type="text" id="center" required />
+    <label for="className">Class</label>
+    <input type="text" id="className" required />
 
-      <button type="submit">Generate Admit Card</button>
-    </form>
+    <label for="photo">Upload Photo</label>
+    <input type="file" id="photo" accept="image/*" required />
 
-    <div id="admitCard">
-      <h2>Admit Card</h2>
-      <div class="card-row"><strong>Name:</strong> <span id="cardName"></span></div>
-      <div class="card-row"><strong>Roll Number:</strong> <span id="cardRoll"></span></div>
-      <div class="card-row"><strong>Exam Date:</strong> <span id="cardExamDate"></span></div>
-      <div class="card-row"><strong>Exam Center:</strong> <span id="cardCenter"></span></div>
-      <button id="printBtn">Print Admit Card</button>
-    </div>
+    <button type="submit">Generate Admit Card</button>
+  </form>
+</div>
+
+<div class="admit-card-container" style="display:none; margin-top: 40px;">
+  <div class="admit-card" id="admitCard">
+    <img id="cardPhoto" src="" alt="Student Photo" />
+    <h3>Admit Card</h3>
+    <p><strong>Name:</strong> <span id="cardName"></span></p>
+    <p><strong>Roll Number:</strong> <span id="cardRoll"></span></p>
+    <p><strong>Class:</strong> <span id="cardClass"></span></p>
   </div>
+  <button onclick="window.print()">Print Admit Card</button>
+</div>
 
 <script>
-  const form = document.getElementById('admitForm');
-  const admitCard = document.getElementById('admitCard');
+  const admitForm = document.getElementById('admitForm');
+  const admitCardContainer = document.querySelector('.admit-card-container');
   const cardName = document.getElementById('cardName');
   const cardRoll = document.getElementById('cardRoll');
-  const cardExamDate = document.getElementById('cardExamDate');
-  const cardCenter = document.getElementById('cardCenter');
-  const printBtn = document.getElementById('printBtn');
+  const cardClass = document.getElementById('cardClass');
+  const cardPhoto = document.getElementById('cardPhoto');
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Get values
-    const name = document.getElementById('name').value.trim();
-    const roll = document.getElementById('roll').value.trim();
-    const examDate = document.getElementById('examDate').value;
-    const center = document.getElementById('center').value.trim();
+  admitForm.addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    if(!name || !roll || !examDate || !center){
-      alert('Please fill all the fields');
-      return;
+    const name = document.getElementById('studentName').value.trim();
+    const roll = document.getElementById('rollNumber').value.trim();
+    const className = document.getElementById('className').value.trim();
+    const photoInput = document.getElementById('photo');
+
+    if (photoInput.files && photoInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        cardPhoto.src = e.target.result;
+      };
+      reader.readAsDataURL(photoInput.files[0]);
     }
 
-    // Fill the admit card
     cardName.textContent = name;
     cardRoll.textContent = roll;
-    // Format date nicely
-    const formattedDate = new Date(examDate).toLocaleDateString(undefined, {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
-    cardExamDate.textContent = formattedDate;
-    cardCenter.textContent = center;
+    cardClass.textContent = className;
 
-    // Show admit card
-    admitCard.style.display = 'block';
-    // Scroll to admit card
-    admitCard.scrollIntoView({behavior: 'smooth'});
-  });
+    admitCardContainer.style.display = 'block';
 
-  printBtn.addEventListener('click', function(){
-    window.print();
+    // Scroll to the admit card
+    admitCardContainer.scrollIntoView({behavior: 'smooth'});
   });
 </script>
+
 </body>
 </html>
