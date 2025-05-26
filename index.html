@@ -1,92 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>EShram Card Maker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f1f1f1;
-      padding: 20px;
+  <title>Customer Appointment Maker</title>
+  <script>
+    function generateAppointmentId() {
+      // Simulates generating a unique appointment ID (e.g., using timestamp)
+      const timestamp = Date.now();
+      const randomNum = Math.floor(Math.random() * 1000);
+      return `APT-${timestamp}-${randomNum}`;
     }
 
-    .card {
-      width: 350px;
-      border: 1px solid #333;
-      padding: 15px;
-      background: #fff;
-      margin: auto;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
+    function submitForm(event) {
+      event.preventDefault(); // Prevent actual form submission
+      const name = document.getElementById("name").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
 
-    .card h2 {
-      color: #0057b8;
+      const appointmentId = generateAppointmentId();
+      
+      // Display appointment ID
+      document.getElementById("appointmentResult").innerHTML =
+        `<strong>Appointment Confirmed!</strong><br>ID: <code>${appointmentId}</code><br>Name: ${name}<br>Date: ${date}<br>Time: ${time}`;
     }
-
-    .card img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin-bottom: 10px;
-    }
-
-    .input-area {
-      margin-bottom: 20px;
-    }
-
-    .input-area input {
-      margin: 5px;
-      padding: 8px;
-      width: 90%;
-    }
-
-    button {
-      padding: 10px 15px;
-      background-color: #0057b8;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-
-    .result {
-      display: none;
-    }
-
-  </style>
+  </script>
 </head>
 <body>
+  <h2>Book an Appointment</h2>
+  <form onsubmit="submitForm(event)">
+    <label for="name">Customer Name:</label><br>
+    <input type="text" id="name" required><br><br>
 
-<div class="input-area">
-  <h2>EShram Card Form</h2>
-  <input type="text" id="name" placeholder="Full Name">
-  <input type="text" id="aadhaar" placeholder="Aadhaar Number">
-  <input type="text" id="mobile" placeholder="Mobile Number">
-  <button onclick="generateCard()">Generate Card</button>
-</div>
+    <label for="date">Appointment Date:</label><br>
+    <input type="date" id="date" required><br><br>
 
-<div class="card result" id="card">
-  <h2>ई-श्रम कार्ड</h2>
-  <img src="https://via.placeholder.com/80" alt="Photo">
-  <p><strong>Name:</strong> <span id="cardName"></span></p>
-  <p><strong>Aadhaar:</strong> <span id="cardAadhaar"></span></p>
-  <p><strong>Mobile:</strong> <span id="cardMobile"></span></p>
-  <p><strong>UAN:</strong> 1234 5678 9012</p>
-</div>
+    <label for="time">Appointment Time:</label><br>
+    <input type="time" id="time" required><br><br>
 
-<script>
-  function generateCard() {
-    const name = document.getElementById('name').value;
-    const aadhaar = document.getElementById('aadhaar').value;
-    const mobile = document.getElementById('mobile').value;
+    <button type="submit">Submit</button>
+  </form>
 
-    document.getElementById('cardName').textContent = name;
-    document.getElementById('cardAadhaar').textContent = aadhaar;
-    document.getElementById('cardMobile').textContent = mobile;
-
-    document.getElementById('card').style.display = 'block';
-  }
-</script>
-
+  <div id="appointmentResult" style="margin-top:20px;"></div>
 </body>
 </html>
