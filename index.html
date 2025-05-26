@@ -6,65 +6,66 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
+      margin: 30px;
     }
-    #receipt {
+    .receipt-container {
+      width: 600px;
+      margin: auto;
       border: 1px solid #000;
       padding: 20px;
-      width: 60%;
-      margin: auto;
     }
     h2 {
       text-align: center;
     }
-    .details {
-      margin-top: 20px;
+    .info {
+      margin-bottom: 20px;
     }
-    .details p {
+    .info p {
       margin: 5px 0;
     }
-    #downloadBtn {
-      display: block;
-      margin: 20px auto;
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .print-button {
+      margin-top: 20px;
+      text-align: center;
+    }
+    button {
       padding: 10px 20px;
       font-size: 16px;
+    }
+    @media print {
+      .print-button {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
 
-<div id="receipt">
-  <h2>Payment Receipt</h2>
-  <div class="details">
-    <p><strong>Student Name:</strong> John Doe</p>
-    <p><strong>Student ID:</strong> 123456</p>
-    <p><strong>Course:</strong> Bachelor of Science</p>
-    <p><strong>Amount Paid:</strong> $500</p>
-    <p><strong>Date:</strong> 2025-05-26</p>
-    <p><strong>Payment Method:</strong> Credit Card</p>
+  <div class="receipt-container">
+    <h2>Student Payment Receipt</h2>
+    
+    <div class="info">
+      <p><strong>Receipt No:</strong> #12345</p>
+      <p><strong>Student Name:</strong> John Doe</p>
+      <p><strong>Student ID:</strong> STU202501</p>
+      <p><strong>Course:</strong> Computer Science</p>
+      <p><strong>Amount Paid:</strong> $500.00</p>
+      <p><strong>Payment Date:</strong> 26 May 2025</p>
+      <p><strong>Payment Method:</strong> Credit Card</p>
+    </div>
+
+    <div class="footer">
+      <p>Thank you for your payment.</p>
+      <p>School/Institution Name</p>
+    </div>
+
+    <div class="print-button">
+      <button onclick="window.print()">Print Receipt</button>
+    </div>
   </div>
-  <p style="text-align:center; margin-top: 30px;">Thank you for your payment.</p>
-</div>
-
-<button id="downloadBtn">Download PDF</button>
-
-<!-- Include jsPDF library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-  document.getElementById("downloadBtn").addEventListener("click", function () {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    // Convert HTML to PDF
-    doc.html(document.querySelector("#receipt"), {
-      callback: function (pdf) {
-        pdf.save("Student_Payment_Receipt.pdf");
-      },
-      x: 10,
-      y: 10
-    });
-  });
-</script>
 
 </body>
 </html>
