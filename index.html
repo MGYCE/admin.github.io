@@ -1,14 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Get Student Data</title>
+  <meta charset="UTF-8">
+  <title>Exam Date Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 50px;
+      background: #f0f4f8;
+      text-align: center;
+    }
+
+    select, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+
+    #exam-date {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
-    <h2>Enter Roll Number</h2>
-    <form action="get_student.php" method="post">
-        <label for="roll">Roll Number:</label>
-        <input type="text" id="roll" name="roll" required>
-        <input type="submit" value="Get Student Data">
-    </form>
+  <div class="container">
+    <h2>Select Course to Get Exam Date</h2>
+
+    <select id="course-select">
+      <option value="">-- Choose a Course --</option>
+      <option value="math">Mathematics</option>
+      <option value="physics">Physics</option>
+      <option value="chemistry">Chemistry</option>
+      <option value="english">English</option>
+    </select>
+
+    <button onclick="showExamDate()">Get Exam Date</button>
+
+    <div id="exam-date"></div>
+  </div>
+
+  <script>
+    function showExamDate() {
+      const course = document.getElementById("course-select").value;
+      const dateDisplay = document.getElementById("exam-date");
+      let examDates = {
+        math: "June 10, 2025",
+        physics: "June 12, 2025",
+        chemistry: "June 14, 2025",
+        english: "June 16, 2025"
+      };
+
+      if (course && examDates[course]) {
+        dateDisplay.textContent = `Exam Date: ${examDates[course]}`;
+      } else {
+        dateDisplay.textContent = "Please select a course.";
+      }
+    }
+  </script>
 </body>
 </html>
