@@ -2,70 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Student Payment Receipt</title>
+  <title>EShram Card Maker</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 30px;
-    }
-    .receipt-container {
-      width: 600px;
-      margin: auto;
-      border: 1px solid #000;
+      background: #f1f1f1;
       padding: 20px;
     }
-    h2 {
+
+    .card {
+      width: 350px;
+      border: 1px solid #333;
+      padding: 15px;
+      background: #fff;
+      margin: auto;
       text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
-    .info {
+
+    .card h2 {
+      color: #0057b8;
+    }
+
+    .card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .input-area {
       margin-bottom: 20px;
     }
-    .info p {
-      margin: 5px 0;
+
+    .input-area input {
+      margin: 5px;
+      padding: 8px;
+      width: 90%;
     }
-    .footer {
-      margin-top: 30px;
-      text-align: center;
-    }
-    .print-button {
-      margin-top: 20px;
-      text-align: center;
-    }
+
     button {
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 10px 15px;
+      background-color: #0057b8;
+      color: #fff;
+      border: none;
+      cursor: pointer;
     }
-    @media print {
-      .print-button {
-        display: none;
-      }
+
+    .result {
+      display: none;
     }
+
   </style>
 </head>
 <body>
 
-  <div class="receipt-container">
-    <h2>Student Payment Receipt</h2>
-    
-    <div class="info">
-      <p><strong>Receipt No:</strong> #12345</p>
-      <p><strong>Student Name:</strong> John Doe</p>
-      <p><strong>Student ID:</strong> STU202501</p>
-      <p><strong>Course:</strong> Computer Science</p>
-      <p><strong>Amount Paid:</strong> $500.00</p>
-      <p><strong>Payment Date:</strong> 26 May 2025</p>
-      <p><strong>Payment Method:</strong> Credit Card</p>
-    </div>
+<div class="input-area">
+  <h2>EShram Card Form</h2>
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="text" id="aadhaar" placeholder="Aadhaar Number">
+  <input type="text" id="mobile" placeholder="Mobile Number">
+  <button onclick="generateCard()">Generate Card</button>
+</div>
 
-    <div class="footer">
-      <p>Thank you for your payment.</p>
-      <p>School/Institution Name</p>
-    </div>
+<div class="card result" id="card">
+  <h2>ई-श्रम कार्ड</h2>
+  <img src="https://via.placeholder.com/80" alt="Photo">
+  <p><strong>Name:</strong> <span id="cardName"></span></p>
+  <p><strong>Aadhaar:</strong> <span id="cardAadhaar"></span></p>
+  <p><strong>Mobile:</strong> <span id="cardMobile"></span></p>
+  <p><strong>UAN:</strong> 1234 5678 9012</p>
+</div>
 
-    <div class="print-button">
-      <button onclick="window.print()">Print Receipt</button>
-    </div>
-  </div>
+<script>
+  function generateCard() {
+    const name = document.getElementById('name').value;
+    const aadhaar = document.getElementById('aadhaar').value;
+    const mobile = document.getElementById('mobile').value;
+
+    document.getElementById('cardName').textContent = name;
+    document.getElementById('cardAadhaar').textContent = aadhaar;
+    document.getElementById('cardMobile').textContent = mobile;
+
+    document.getElementById('card').style.display = 'block';
+  }
+</script>
 
 </body>
 </html>
