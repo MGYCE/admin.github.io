@@ -1,81 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Status Check Portal</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            display: flex;
-            height: 100vh;
-            align-items: center;
-            justify-content: center;
-        }
-        .status-container {
-            background: white;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #007BFF;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #status-result {
-            margin-top: 20px;
-            font-weight: bold;
-            color: green;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    h2 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-<div class="status-container">
-    <h2>Check Your Status</h2>
-    <form id="statusForm">
-        <input type="text" id="statusId" placeholder="Enter Your ID" required>
-        <button type="submit">Check Status</button>
+  <div class="login-container">
+    <h2>Login to Enter Dashboard</h2>
+    <form id="loginForm">
+      <div class="error" id="errorMsg">Invalid username or password</div>
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
     </form>
-    <div id="status-result"></div>
-</div>
+  </div>
 
-<script>
-    document.getElementById("statusForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        const id = document.getElementById("statusId").value;
-        
-        // Simulate status check (this would be replaced by real backend call)
-        let resultText;
-        if (id === "12345") {
-            resultText = "Status: Approved ✅";
-        } else if (id === "67890") {
-            resultText = "Status: Pending ⏳";
-        } else {
-            resultText = "Status: Not Found ❌";
-        }
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
 
-        document.getElementById("status-result").innerText = resultText;
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Simple hardcoded check - replace with your own authentication logic
+      if (username === 'admin' && password === 'password123') {
+        // Redirect to dashboard page
+        window.location.href = 'dashboard.html';
+      } else {
+        // Show error message
+        errorMsg.style.display = 'block';
+      }
     });
-</script>
+  </script>
 
 </body>
 </html>
