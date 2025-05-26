@@ -1,118 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Exam Hall Ticket Maker</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-  .hall-ticket {
-    border: 2px solid #333;
-    width: 400px;
-    padding: 20px;
-    margin-top: 20px;
-  }
-  .hall-ticket h2 {
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .hall-ticket img {
-    display: block;
-    margin: 0 auto 15px;
-    max-width: 120px;
-    border-radius: 5px;
-  }
-  .hall-ticket .details {
-    font-size: 16px;
-    line-height: 1.6;
-  }
-  label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-  }
-  input[type="text"], input[type="file"], select {
-    width: 100%;
-    padding: 6px;
-    margin-top: 5px;
-    box-sizing: border-box;
-  }
-  button {
-    margin-top: 20px;
-    padding: 10px 15px;
-    font-size: 16px;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marksheet Design</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      padding: 20px;
+    }
+    .marksheet {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border: 2px solid #333;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+    .student-info {
+      margin-bottom: 20px;
+    }
+    .student-info p {
+      margin: 5px 0;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+    table, th, td {
+      border: 1px solid #333;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
+    .total-row {
+      font-weight: bold;
+      background-color: #ecf0f1;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Exam Hall Ticket Maker</h1>
+<div class="marksheet">
+  <h1>Marksheet</h1>
 
-<form id="ticketForm">
-  <label for="studentName">Student Name:</label>
-  <input type="text" id="studentName" required />
+  <div class="student-info">
+    <p>Name: <span id="studentName">John Doe</span></p>
+    <p>Class: <span id="className">10th Grade</span></p>
+    <p>Roll No: <span id="rollNo">23</span></p>
+  </div>
 
-  <label for="studentID">Student ID:</label>
-  <input type="text" id="studentID" required />
+  <table>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Max Marks</th>
+        <th>Marks Obtained</th>
+      </tr>
+    </thead>
+    <tbody id="marksTableBody">
+      <tr>
+        <td>Mathematics</td>
+        <td>100</td>
+        <td>95</td>
+      </tr>
+      <tr>
+        <td>Science</td>
+        <td>100</td>
+        <td>89</td>
+      </tr>
+      <tr>
+        <td>English</td>
+        <td>100</td>
+        <td>92</td>
+      </tr>
+      <tr>
+        <td>Social Studies</td>
+        <td>100</td>
+        <td>85</td>
+      </tr>
+      <tr>
+        <td>Computer</td>
+        <td>100</td>
+        <td>98</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="total-row">
+        <td>Total</td>
+        <td id="totalMaxMarks">500</td>
+        <td id="totalObtainedMarks">459</td>
+      </tr>
+      <tr class="total-row">
+        <td>Percentage</td>
+        <td colspan="2" id="percentage">91.8%</td>
+      </tr>
+      <tr class="total-row">
+        <td>Grade</td>
+        <td colspan="2" id="grade">A+</td>
+      </tr>
+    </tfoot>
+  </table>
 
-  <label for="examDate">Exam Date:</label>
-  <input type="text" id="examDate" placeholder="DD/MM/YYYY" required />
-
-  <label for="examCenter">Exam Center:</label>
-  <input type="text" id="examCenter" required />
-
-  <label for="photo">Upload Photo:</label>
-  <input type="file" id="photo" accept="image/*" required />
-
-  <button type="submit">Generate Hall Ticket</button>
-</form>
-
-<div id="hallTicket" class="hall-ticket" style="display:none;">
-  <h2>Exam Hall Ticket</h2>
-  <img id="ticketPhoto" src="" alt="Student Photo" />
-  <div class="details">
-    <p><strong>Name:</strong> <span id="ticketName"></span></p>
-    <p><strong>Student ID:</strong> <span id="ticketID"></span></p>
-    <p><strong>Exam Date:</strong> <span id="ticketDate"></span></p>
-    <p><strong>Exam Center:</strong> <span id="ticketCenter"></span></p>
+  <div class="footer">
+    <p>Signature: ____________________</p>
   </div>
 </div>
 
 <script>
-  const form = document.getElementById('ticketForm');
-  const hallTicket = document.getElementById('hallTicket');
+  // You can add JavaScript here if you want dynamic calculation, 
+  // but currently the marks and total are hardcoded in the HTML.
+  // Below is an example how you might calculate total, percentage, and grade dynamically:
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
+  (function calculateResults() {
+    const tableBody = document.getElementById('marksTableBody');
+    let totalMax = 0;
+    let totalObtained = 0;
 
-    // Get values from the form
-    const name = document.getElementById('studentName').value;
-    const studentID = document.getElementById('studentID').value;
-    const examDate = document.getElementById('examDate').value;
-    const examCenter = document.getElementById('examCenter').value;
-    const photoInput = document.getElementById('photo');
+    for(let row of tableBody.rows) {
+      const maxMarks = parseInt(row.cells[1].textContent);
+      const obtainedMarks = parseInt(row.cells[2].textContent);
 
-    if (photoInput.files && photoInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        // Set the photo source
-        document.getElementById('ticketPhoto').src = event.target.result;
-        // Fill in the details
-        document.getElementById('ticketName').textContent = name;
-        document.getElementById('ticketID').textContent = studentID;
-        document.getElementById('ticketDate').textContent = examDate;
-        document.getElementById('ticketCenter').textContent = examCenter;
-
-        // Show the hall ticket
-        hallTicket.style.display = 'block';
-      };
-      reader.readAsDataURL(photoInput.files[0]);
+      totalMax += maxMarks;
+      totalObtained += obtainedMarks;
     }
-  });
+
+    const percentage = (totalObtained / totalMax) * 100;
+
+    document.getElementById('totalMaxMarks').textContent = totalMax;
+    document.getElementById('totalObtainedMarks').textContent = totalObtained;
+    document.getElementById('percentage').textContent = percentage.toFixed(2) + '%';
+
+    // Grade Calculation based on percentage
+    let grade = '';
+    if (percentage >= 90) grade = 'A+';
+    else if (percentage >= 80) grade = 'A';
+    else if (percentage >= 70) grade = 'B+';
+    else if (percentage >= 60) grade = 'B';
+    else if (percentage >= 50) grade = 'C';
+    else grade = 'F';
+
+    document.getElementById('grade').textContent = grade;
+  })();
 </script>
 
 </body>
