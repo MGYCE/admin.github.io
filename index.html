@@ -1,176 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Student Computer Marksheet Maker</title>
+  <meta charset="UTF-8">
+  <title>Student Payment Receipt</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 30px auto;
-      padding: 15px;
-      background-color: #f9f9f9;
-      border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    #receipt {
+      border: 1px solid #000;
+      padding: 20px;
+      width: 60%;
+      margin: auto;
     }
     h2 {
       text-align: center;
-      color: #333;
     }
-    label {
+    .details {
+      margin-top: 20px;
+    }
+    .details p {
+      margin: 5px 0;
+    }
+    #downloadBtn {
       display: block;
-      margin: 10px 0 5px;
-    }
-    input[type="text"],
-    input[type="number"] {
-      width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-      border: 1px solid #aaa;
-      border-radius: 4px;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 15px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 100%;
+      margin: 20px auto;
+      padding: 10px 20px;
       font-size: 16px;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .marksheet {
-      margin-top: 30px;
-      padding: 15px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-    }
-    .marksheet h3 {
-      margin-bottom: 15px;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 5px;
-      color: #444;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 15px;
-    }
-    table, th, td {
-      border: 1px solid #bbb;
-    }
-    th, td {
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #f0f0f0;
-    }
-    .result {
-      font-weight: bold;
-      text-align: center;
-      font-size: 18px;
-      color: #222;
     }
   </style>
 </head>
 <body>
 
-  <h2>Student Computer Marksheet Maker</h2>
-
-  <form id="marksheetForm">
-    <label for="studentName">Student Name:</label>
-    <input type="text" id="studentName" required />
-
-    <label for="rollNumber">Roll Number:</label>
-    <input type="text" id="rollNumber" required />
-
-    <label for="subject1">Programming (out of 100):</label>
-    <input type="number" id="subject1" min="0" max="100" required />
-
-    <label for="subject2">Database (out of 100):</label>
-    <input type="number" id="subject2" min="0" max="100" required />
-
-    <label for="subject3">Networking (out of 100):</label>
-    <input type="number" id="subject3" min="0" max="100" required />
-
-    <label for="subject4">Web Development (out of 100):</label>
-    <input type="number" id="subject4" min="0" max="100" required />
-
-    <label for="subject5">Computer Fundamentals (out of 100):</label>
-    <input type="number" id="subject5" min="0" max="100" required />
-
-    <button type="submit">Generate Marksheet</button>
-  </form>
-
-  <div id="result" class="marksheet" style="display:none;">
-    <h3>Marksheet</h3>
-    <p><strong>Name:</strong> <span id="resName"></span></p>
-    <p><strong>Roll Number:</strong> <span id="resRoll"></span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Subject</th>
-          <th>Marks Obtained</th>
-          <th>Maximum Marks</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Programming</td><td id="resSub1"></td><td>100</td></tr>
-        <tr><td>Database</td><td id="resSub2"></td><td>100</td></tr>
-        <tr><td>Networking</td><td id="resSub3"></td><td>100</td></tr>
-        <tr><td>Web Development</td><td id="resSub4"></td><td>100</td></tr>
-        <tr><td>Computer Fundamentals</td><td id="resSub5"></td><td>100</td></tr>
-      </tbody>
-    </table>
-    <p class="result">Total Marks: <span id="totalMarks"></span> / 500</p>
-    <p class="result">Percentage: <span id="percentage"></span>%</p>
+<div id="receipt">
+  <h2>Payment Receipt</h2>
+  <div class="details">
+    <p><strong>Student Name:</strong> John Doe</p>
+    <p><strong>Student ID:</strong> 123456</p>
+    <p><strong>Course:</strong> Bachelor of Science</p>
+    <p><strong>Amount Paid:</strong> $500</p>
+    <p><strong>Date:</strong> 2025-05-26</p>
+    <p><strong>Payment Method:</strong> Credit Card</p>
   </div>
+  <p style="text-align:center; margin-top: 30px;">Thank you for your payment.</p>
+</div>
 
-  <script>
-    document.getElementById('marksheetForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+<button id="downloadBtn">Download PDF</button>
 
-      // Get values
-      const name = document.getElementById('studentName').value.trim();
-      const roll = document.getElementById('rollNumber').value.trim();
-      const sub1 = parseInt(document.getElementById('subject1').value, 10);
-      const sub2 = parseInt(document.getElementById('subject2').value, 10);
-      const sub3 = parseInt(document.getElementById('subject3').value, 10);
-      const sub4 = parseInt(document.getElementById('subject4').value, 10);
-      const sub5 = parseInt(document.getElementById('subject5').value, 10);
+<!-- Include jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  document.getElementById("downloadBtn").addEventListener("click", function () {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-      // Validate marks within 0-100
-      if ([sub1, sub2, sub3, sub4, sub5].some(mark => mark < 0 || mark > 100 || isNaN(mark))) {
-        alert('Please enter valid marks between 0 and 100.');
-        return;
-      }
-
-      // Calculate total and percentage
-      const total = sub1 + sub2 + sub3 + sub4 + sub5;
-      const percentage = ((total / 500) * 100).toFixed(2);
-
-      // Set values in result section
-      document.getElementById('resName').textContent = name;
-      document.getElementById('resRoll').textContent = roll;
-      document.getElementById('resSub1').textContent = sub1;
-      document.getElementById('resSub2').textContent = sub2;
-      document.getElementById('resSub3').textContent = sub3;
-      document.getElementById('resSub4').textContent = sub4;
-      document.getElementById('resSub5').textContent = sub5;
-      document.getElementById('totalMarks').textContent = total;
-      document.getElementById('percentage').textContent = percentage;
-
-      // Show result
-      document.getElementById('result').style.display = 'block';
+    // Convert HTML to PDF
+    doc.html(document.querySelector("#receipt"), {
+      callback: function (pdf) {
+        pdf.save("Student_Payment_Receipt.pdf");
+      },
+      x: 10,
+      y: 10
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
