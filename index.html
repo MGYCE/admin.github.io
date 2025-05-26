@@ -3,155 +3,131 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Admit Card Maker</title>
+<title>Student Registration Certificate Maker</title>
 <style>
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background: #f0f0f0;
     padding: 20px;
-    background: #f5f5f5;
   }
-  .form-container, .admit-card-container {
-    max-width: 400px;
+  .container {
+    max-width: 700px;
     margin: auto;
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
   }
-  h2 {
+  h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
   label {
     display: block;
-    margin-top: 10px;
+    margin: 15px 0 5px;
   }
-  input[type="text"], input[type="file"] {
+  input, select {
     width: 100%;
-    padding: 8px;
-    margin-top: 4px;
-    box-sizing: border-box;
+    padding: 8px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
   button {
     margin-top: 20px;
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    background: #007bff;
-    color: white;
+    padding: 12px;
+    font-size: 1.1rem;
+    background: #2e86de;
     border: none;
-    border-radius: 4px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
   }
   button:hover {
-    background: #0056b3;
+    background: #1b4f72;
   }
-  /* Admit card styles */
-  .admit-card {
-    border: 2px solid #007bff;
-    padding: 20px;
+  .certificate {
+    margin-top: 40px;
+    padding: 30px;
+    border: 5px solid #2e86de;
+    border-radius: 15px;
+    background: #d6eaf8;
     text-align: center;
   }
-  .admit-card img {
-    width: 120px;
-    height: 140px;
-    object-fit: cover;
-    border: 2px solid #007bff;
-    margin-bottom: 15px;
-  }
-  .admit-card h3 {
+  .certificate h2 {
     margin-bottom: 10px;
-    color: #007bff;
   }
-  .admit-card p {
-    font-size: 18px;
-    margin: 5px 0;
+  .certificate p {
+    font-size: 1.2rem;
+    line-height: 1.6;
   }
-  @media print {
-    body * {
-      visibility: hidden;
-    }
-    .admit-card, .admit-card * {
-      visibility: visible;
-    }
-    .admit-card {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      max-width: none;
-      margin: 0;
-      padding: 0;
-      box-shadow: none;
-      border: none;
-    }
+  .bold {
+    font-weight: bold;
   }
 </style>
 </head>
 <body>
 
-<div class="form-container">
-  <h2>Create Admit Card</h2>
-  <form id="admitForm">
-    <label for="studentName">Student Name</label>
+<div class="container">
+  <h1>Student Registration Certificate Maker</h1>
+
+  <form id="certForm">
+    <label for="studentName">Student Name:</label>
     <input type="text" id="studentName" required />
 
-    <label for="rollNumber">Roll Number</label>
-    <input type="text" id="rollNumber" required />
+    <label for="studentId">Student ID:</label>
+    <input type="text" id="studentId" required />
 
-    <label for="className">Class</label>
-    <input type="text" id="className" required />
+    <label for="course">Course:</label>
+    <input type="text" id="course" required />
 
-    <label for="photo">Upload Photo</label>
-    <input type="file" id="photo" accept="image/*" required />
+    <label for="date">Registration Date:</label>
+    <input type="date" id="date" required />
 
-    <button type="submit">Generate Admit Card</button>
+    <button type="submit">Generate Certificate</button>
   </form>
-</div>
 
-<div class="admit-card-container" style="display:none; margin-top: 40px;">
-  <div class="admit-card" id="admitCard">
-    <img id="cardPhoto" src="" alt="Student Photo" />
-    <h3>Admit Card</h3>
-    <p><strong>Name:</strong> <span id="cardName"></span></p>
-    <p><strong>Roll Number:</strong> <span id="cardRoll"></span></p>
-    <p><strong>Class:</strong> <span id="cardClass"></span></p>
+  <div id="certificate" class="certificate" style="display:none;">
+    <h2>Certificate of Registration</h2>
+    <p>This is to certify that <span class="bold" id="certStudentName"></span>, with Student ID <span class="bold" id="certStudentId"></span>,</p>
+    <p>has been officially registered for the course <span class="bold" id="certCourse"></span>.</p>
+    <p>Registration Date: <span class="bold" id="certDate"></span></p>
+    <br />
+    <p>______________________________</p>
+    <p>Registrar Signature</p>
   </div>
-  <button onclick="window.print()">Print Admit Card</button>
 </div>
 
 <script>
-  const admitForm = document.getElementById('admitForm');
-  const admitCardContainer = document.querySelector('.admit-card-container');
-  const cardName = document.getElementById('cardName');
-  const cardRoll = document.getElementById('cardRoll');
-  const cardClass = document.getElementById('cardClass');
-  const cardPhoto = document.getElementById('cardPhoto');
-
-  admitForm.addEventListener('submit', function(event) {
-    event.preventDefault();
+  document.getElementById('certForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
     const name = document.getElementById('studentName').value.trim();
-    const roll = document.getElementById('rollNumber').value.trim();
-    const className = document.getElementById('className').value.trim();
-    const photoInput = document.getElementById('photo');
+    const id = document.getElementById('studentId').value.trim();
+    const course = document.getElementById('course').value.trim();
+    const date = document.getElementById('date').value;
 
-    if (photoInput.files && photoInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        cardPhoto.src = e.target.result;
-      };
-      reader.readAsDataURL(photoInput.files[0]);
+    if (!name || !id || !course || !date) {
+      alert('Please fill all fields.');
+      return;
     }
 
-    cardName.textContent = name;
-    cardRoll.textContent = roll;
-    cardClass.textContent = className;
+    // Format date nicely
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(date).toLocaleDateString(undefined, options);
 
-    admitCardContainer.style.display = 'block';
+    // Fill certificate details
+    document.getElementById('certStudentName').textContent = name;
+    document.getElementById('certStudentId').textContent = id;
+    document.getElementById('certCourse').textContent = course;
+    document.getElementById('certDate').textContent = formattedDate;
 
-    // Scroll to the admit card
-    admitCardContainer.scrollIntoView({behavior: 'smooth'});
+    // Show certificate
+    document.getElementById('certificate').style.display = 'block';
+
+    // Optionally scroll to certificate
+    document.getElementById('certificate').scrollIntoView({ behavior: 'smooth' });
   });
 </script>
 
