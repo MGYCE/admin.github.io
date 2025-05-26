@@ -3,186 +3,155 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Simple Aadhaar Card Maker (Demo)</title>
+<title>Admit Card Maker</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #f7f7f7;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px;
   }
-  h1 {
-    color: #1a73e8;
-  }
-  form {
-    background: white;
+  .form-container, .admit-card {
+    max-width: 600px;
+    margin: auto;
+    border: 1px solid #ddd;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 8px #ccc;
-    width: 320px;
-    margin-bottom: 30px;
   }
-  label {
-    display: block;
-    margin: 12px 0 6px;
-    font-weight: bold;
+  .admit-card {
+    margin-top: 30px;
+    background-color: #f9f9f9;
   }
-  input, textarea {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #aaa;
-    border-radius: 4px;
+  .admit-card h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .admit-card p {
+    font-size: 18px;
+    margin: 6px 0;
   }
   button {
     margin-top: 15px;
-    width: 100%;
-    background: #1a73e8;
-    border: none;
-    color: white;
+    padding: 10px 15px;
     font-size: 16px;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  button:hover {
-    background: #1669c1;
-  }
-  .aadhaar-card {
-    width: 350px;
-    background: #fff;
-    border: 2px solid #1a73e8;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 12px #888;
-  }
-  .aadhaar-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  .aadhaar-logo {
-    width: 60px;
-    margin-right: 15px;
-  }
-  .aadhaar-title {
-    font-weight: 700;
-    font-size: 18px;
-    color: #1a73e8;
-  }
-  .aadhaar-photo {
-    width: 80px;
-    height: 100px;
-    background: #ddd;
-    border: 1px solid #aaa;
-    margin-bottom: 15px;
-    object-fit: cover;
-  }
-  .aadhaar-info {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .aadhaar-info b {
-    display: inline-block;
-    width: 110px;
-  }
-  .aadhaar-footer {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #555;
-    text-align: center;
   }
 </style>
 </head>
 <body>
 
-<h1>Aadhaar Card Maker (Demo)</h1>
+<h1>Admit Card Maker</h1>
 
-<form id="aadhaarForm">
-  <label for="name">Full Name</label>
-  <input type="text" id="name" required placeholder="Enter your full name" />
+<div class="form-container">
+  <label>
+    Student Name:<br />
+    <input type="text" id="name" placeholder="Enter student name" required />
+  </label><br /><br />
 
-  <label for="aadhaar">Aadhaar Number</label>
-  <input type="text" id="aadhaar" pattern="\d{12}" maxlength="12" required placeholder="12 digit Aadhaar number" />
+  <label>
+    Roll Number:<br />
+    <input type="text" id="roll" placeholder="Enter roll number" required />
+  </label><br /><br />
 
-  <label for="dob">Date of Birth</label>
-  <input type="date" id="dob" required />
+  <label>
+    Class:<br />
+    <input type="text" id="class" placeholder="Enter class" required />
+  </label><br /><br />
 
-  <label for="address">Address</label>
-  <textarea id="address" rows="3" required placeholder="Enter your address"></textarea>
+  <label>
+    Exam Date:<br />
+    <input type="date" id="examDate" required />
+  </label><br /><br />
 
-  <label for="photo">Upload Photo (optional)</label>
-  <input type="file" id="photo" accept="image/*" />
+  <label>
+    Exam Venue:<br />
+    <input type="text" id="venue" placeholder="Enter exam venue" required />
+  </label><br /><br />
 
-  <button type="submit">Generate Aadhaar Card</button>
-</form>
-
-<div id="aadhaarCard" class="aadhaar-card" style="display:none;">
-  <div class="aadhaar-header">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Emblem_of_India.svg/120px-Emblem_of_India.svg.png" alt="Indian Emblem" class="aadhaar-logo" />
-    <div class="aadhaar-title">Unique Identification Authority of India<br /><small>Aadhaar Card</small></div>
-  </div>
-  <img id="cardPhoto" src="" alt="Photo" class="aadhaar-photo" style="display:none;" />
-  <div class="aadhaar-info">
-    <div><b>Name:</b> <span id="cardName"></span></div>
-    <div><b>Aadhaar No:</b> <span id="cardNumber"></span></div>
-    <div><b>Date of Birth:</b> <span id="cardDOB"></span></div>
-    <div><b>Address:</b> <span id="cardAddress"></span></div>
-  </div>
-  <div class="aadhaar-footer">This is a demo Aadhaar card created for educational purposes only.</div>
+  <button onclick="generateAdmitCard()">Generate Admit Card</button>
 </div>
 
+<div id="admitCard" class="admit-card" style="display:none;">
+  <!-- Admit card will appear here -->
+</div>
+
+<button id="downloadBtn" style="display:none;" onclick="downloadAdmitCard()">Download Admit Card</button>
+
 <script>
-  const form = document.getElementById('aadhaarForm');
-  const aadhaarCard = document.getElementById('aadhaarCard');
-  const cardName = document.getElementById('cardName');
-  const cardNumber = document.getElementById('cardNumber');
-  const cardDOB = document.getElementById('cardDOB');
-  const cardAddress = document.getElementById('cardAddress');
-  const cardPhoto = document.getElementById('cardPhoto');
-  const photoInput = document.getElementById('photo');
+function generateAdmitCard() {
+  const name = document.getElementById('name').value.trim();
+  const roll = document.getElementById('roll').value.trim();
+  const studentClass = document.getElementById('class').value.trim();
+  const examDate = document.getElementById('examDate').value;
+  const venue = document.getElementById('venue').value.trim();
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
+  if (!name || !roll || !studentClass || !examDate || !venue) {
+    alert('Please fill in all fields.');
+    return;
+  }
 
-    const name = document.getElementById('name').value.trim();
-    const aadhaar = document.getElementById('aadhaar').value.trim();
-    const dob = document.getElementById('dob').value;
-    const address = document.getElementById('address').value.trim();
+  const cardHTML = `
+    <h2>Admit Card</h2>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Roll Number:</strong> ${roll}</p>
+    <p><strong>Class:</strong> ${studentClass}</p>
+    <p><strong>Exam Date:</strong> ${new Date(examDate).toLocaleDateString()}</p>
+    <p><strong>Venue:</strong> ${venue}</p>
+    <p style="text-align:center; margin-top:40px;">Good Luck!</p>
+  `;
 
-    if (!name || !aadhaar || !dob || !address) {
-      alert('Please fill all required fields.');
-      return;
+  const admitCardDiv = document.getElementById('admitCard');
+  admitCardDiv.innerHTML = cardHTML;
+  admitCardDiv.style.display = 'block';
+
+  document.getElementById('downloadBtn').style.display = 'inline-block';
+}
+
+function downloadAdmitCard() {
+  const name = document.getElementById('name').value.trim().replace(/\s+/g, '_');
+  const roll = document.getElementById('roll').value.trim();
+
+  const content = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admit Card - ${name}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: #f9f9f9;
     }
-
-    // Format DOB to DD-MM-YYYY
-    const dateObj = new Date(dob);
-    const formattedDOB = ('0' + dateObj.getDate()).slice(-2) + '-' + ('0' + (dateObj.getMonth() + 1)).slice(-2) + '-' + dateObj.getFullYear();
-
-    cardName.textContent = name;
-    cardNumber.textContent = aadhaar.replace(/(\d{4})(?=\d)/g, '$1 ');
-    cardDOB.textContent = formattedDOB;
-    cardAddress.textContent = address.replace(/\n/g, ', ');
-
-    // Handle photo display
-    const file = photoInput.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        cardPhoto.src = e.target.result;
-        cardPhoto.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
-    } else {
-      cardPhoto.style.display = 'none';
-      cardPhoto.src = '';
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
     }
+    p {
+      font-size: 18px;
+      margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Admit Card</h2>
+  <p><strong>Name:</strong> ${document.getElementById('name').value}</p>
+  <p><strong>Roll Number:</strong> ${roll}</p>
+  <p><strong>Class:</strong> ${document.getElementById('class').value}</p>
+  <p><strong>Exam Date:</strong> ${new Date(document.getElementById('examDate').value).toLocaleDateString()}</p>
+  <p><strong>Venue:</strong> ${document.getElementById('venue').value}</p>
+  <p style="text-align:center; margin-top:40px;">Good Luck!</p>
+</body>
+</html>
+`;
 
-    aadhaarCard.style.display = 'block';
-    window.scrollTo({ top: aadhaarCard.offsetTop, behavior: 'smooth' });
-  });
+  const blob = new Blob([content], {type: 'text/html'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `Admit_Card_${name}_${roll}.html`;
+  link.click();
+}
 </script>
 
 </body>
