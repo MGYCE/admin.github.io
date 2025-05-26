@@ -2,70 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Exam Date Checker</title>
+  <title>Certificate Maker</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 50px;
-      background: #f0f4f8;
+      font-family: 'Georgia', serif;
       text-align: center;
-    }
-
-    select, button {
-      padding: 10px;
-      margin: 10px;
-      font-size: 16px;
-    }
-
-    #exam-date {
-      margin-top: 20px;
-      font-weight: bold;
-      color: #333;
+      background-color: #f4f4f4;
     }
 
     .container {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      display: inline-block;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      width: 80%;
+      max-width: 800px;
+    }
+
+    .form-box {
+      margin-bottom: 30px;
+    }
+
+    .certificate {
+      border: 10px solid #4CAF50;
+      padding: 50px;
+      background-color: white;
+      display: none;
+    }
+
+    .certificate h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .certificate h2 {
+      font-size: 28px;
+      margin: 30px 0 10px;
+    }
+
+    .certificate p {
+      font-size: 18px;
+      margin: 5px 0;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+
+      .certificate, .certificate * {
+        visibility: visible;
+      }
+
+      .certificate {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Select Course to Get Exam Date</h2>
 
-    <select id="course-select">
-      <option value="">-- Choose a Course --</option>
-      <option value="math">Batch-1</option>
-      <option value="physics">Batch-2</option>
-      <option value="chemistry">Batch-3</option>
-      <option value="english">Batch-4</option>
-    </select>
-
-    <button onclick="showExamDate()">Get Exam Date</button>
-
-    <div id="exam-date"></div>
+<div class="container">
+  <div class="form-box">
+    <h2>Certificate Maker</h2>
+    <input type="text" id="nameInput" placeholder="Enter recipient's name" />
+    <button class="btn" onclick="generateCertificate()">Generate Certificate</button>
   </div>
 
-  <script>
-    function showExamDate() {
-      const course = document.getElementById("course-select").value;
-      const dateDisplay = document.getElementById("exam-date");
-      let examDates = {
-        math: "May 25, 2025",
-        physics: "May 31, 2025",
-        chemistry: "June, 2025",
-        english: "June, 2025"
-      };
+  <div class="certificate" id="certificateBox">
+    <h1>Certificate of Achievement</h1>
+    <p>This certificate is proudly presented to</p>
+    <h2 id="recipientName">[Name]</h2>
+    <p>For outstanding performance and dedication.</p>
+    <p><em>Date: <span id="dateField"></span></em></p>
+    <p><strong>Signature:</strong> _______________________</p>
+    <button class="btn" onclick="window.print()">Print Certificate</button>
+  </div>
+</div>
 
-      if (course && examDates[course]) {
-        dateDisplay.textContent = `Exam Date: ${examDates[course]}`;
-      } else {
-        dateDisplay.textContent = "Please select a course.";
-      }
+<script>
+  function generateCertificate() {
+    const name = document.getElementById("nameInput").value.trim();
+    if (name === "") {
+      alert("Please enter a name.");
+      return;
     }
-  </script>
+
+    document.getElementById("recipientName").textContent = name;
+
+    const today = new Date().toLocaleDateString();
+    document.getElementById("dateField").textContent = today;
+
+    document.getElementById("certificateBox").style.display = "block";
+  }
+</script>
+
 </body>
 </html>
