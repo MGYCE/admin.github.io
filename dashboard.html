@@ -254,4 +254,106 @@
 </html>
 </p>
 </body>
+     <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .form-box, .admit-card {
+      background: white;
+      padding: 20px;
+      margin: auto;
+      width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      border-radius: 10px;
+    }
+    .admit-card {
+      display: none;
+    }
+    .admit-card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .details {
+      line-height: 1.8;
+    }
+    button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-box">
+  <h2>Enter Roll Number</h2>
+  <input type="text" id="rollInput" placeholder="Enter Roll Number" style="width:100%;padding:10px;">
+  <button onclick="generateAdmitCard()">Get Admit Card</button>
+</div>
+
+<div class="admit-card" id="admitCard">
+  <h2>Admit Card</h2>
+  <div class="details" id="cardDetails">
+    <!-- Auto-filled content goes here -->
+  </div>
+  <button onclick="window.print()">Print Admit Card</button>
+</div>
+
+<script>
+  const studentDatabase = {
+    "EX101": { name: "Punam Gour", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX102": { name: "Pramila Tanti", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX103": { name: "Deeparpan Baishya", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX104": { name: "Raj Roy", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX105": { name: "Amit Biswas", course: "Typing", exam: "Final Typing Test 2025", center: "Digital Computer Academy" },
+    "EX106": { name: "Subham Biswas", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX107": { name: "Santanu Sarkar", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX108": { name: "Sayan Biswas", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX109": { name: "Joy Sarkar", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX110": { name: "Gourab Sarkar", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX111": { name: "Chiranjit Sarkar", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX112": { name: "Subendu Saha", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX113": { name: "Jayanti Mitra", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX114": { name: "Nisha Das", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX115": { name: "Payel Das", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX116": { name: "Sayan Bhowmik", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX117": { name: "Prithwiraj Chakraborty", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX118": { name: "Raj Das", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX119": { name: "Nayan Rudrapaul", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX120": { name: "Sagarika Rudrapaul", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+    "EX121": { name: "Debajit Datta", course: "DCA", exam: "1st-Term Exam 2025", center: "Digital Computer Academy" },
+  };
+
+  function generateAdmitCard() {
+    const roll = document.getElementById('rollInput').value.trim();
+    const details = studentDatabase[roll];
+
+    if (details) {
+      document.getElementById('cardDetails').innerHTML = `
+        <strong>Roll Number:</strong> ${roll}<br>
+        <strong>Name:</strong> ${details.name}<br>
+        <strong>Course:</strong> ${details.course}<br>
+        <strong>Exam:</strong> ${details.exam}<br>
+        <strong>Exam Center:</strong> ${details.center}<br>
+      `;
+      document.getElementById('admitCard').style.display = 'block';
+    } else {
+      alert("Roll number not found!");
+      document.getElementById('admitCard').style.display = 'none';
+    }
+  }
+</script>
+<section class="noticeSec">
+    <div class="container">
+        <div class="noticeCon">
+            <marquee class="mb-0">
+               Admit card will be auto generate with in 10 Days before your Exam. For any Inquiry, Please contact our support  Team. Contact No 9863404623
+            </marquee>
+        </div>
+    </div>
+</section>
+</body>
 </html>
