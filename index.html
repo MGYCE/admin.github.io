@@ -2,107 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-<style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Page</title>
+  <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f2f2f2;
+      background-color: #f4f7f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       margin: 0;
-      padding: 0;
     }
-
-    .notice-board {
-      max-width: 700px;
-      margin: 50px auto;
-      background: #fff8dc;
-      padding: 20px;
+    .login-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      border: 2px solid #ffa500;
+      width: 300px;
     }
-
-    .notice-board h2 {
+    h2 {
+      margin-bottom: 1.5rem;
       text-align: center;
-      color: #d2691e;
-      margin-bottom: 20px;
-      text-transform: uppercase;
     }
-
-    .notice {
-      padding: 10px;
-      margin: 10px 0;
-      background: #fff;
-      border-left: 5px solid #ffa500;
-      box-shadow: 1px 1px 5px rgba(0,0,0,0.05);
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-
-    .notice-date {
-      font-size: 0.9em;
-      color: #666;
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
     }
-
-    .notice-content {
-      font-size: 1.1em;
+    button:hover {
+      background-color: #0056b3;
+    }
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: none;
     }
   </style>
 </head>
 <body>
- <section class="noticeSec">
-    <div class="container">
-        <div class="noticeCon">
-            <marquee class="mb-0">
-               Technical Support : Monday to Saturday (10:00 AM to 05:00 PM), For any Queries call - +91 9863404623, DCA First Term Exam Result will be Publish Now. But, First your Exam Complete, after result will be Declare Soon with in 1 Week
-            </marquee>
-        </div>
-    </div>
-  <div class="notice-board">
-    <h2>
-      Digital Computer Academy<br/>
-      Result 2025-26
-    </h2>
-<div class="notice">
-      <div class="notice-date">DCA Second Term Exam Result 2025</div>
-      <div class="notice-content">
-        <a href="https://mgyce.github.io/dcasecondterm.github.io/" target="_blank" style="text-decoration: none; color: #000; font-weight: bold;">
-    Click here for see your Result
-</a>
-    </div>
-  <section class="noticeSec">
-    <div class="container">
-        <div class="noticeCon">
-            <marquee class="mb-0">
-               Result will be Decleared Soon
-            </marquee>
-        </div>
-    </div>
-      <div class="notice-date">DCA First Term Exam Result 2025</div>
-      <div class="notice-content">
-        <a href="https://mgyce.github.io/dcafirstterm.github.io/" target="_blank" style="text-decoration: none; color: #000; font-weight: bold;">
-    Click here for see your Result
-</a>
-    </div>
-      <section class="noticeSec">
-    <div class="container">
-        <div class="noticeCon">
-            <marquee class="mb-0">
-               DCA First Term Exam Result will be Publish Now. But, First your Exam Complete, after result will be Declare Soon with in 1 Week
-            </marquee>
-        </div>
-    </div>
-</section>
-    <section class="noticeSec">
-    <div class="container">
-        <div class="noticeCon">
-            <marquee class="mb-0">
-               Technical Support : Monday to Saturday (10:00 AM to 05:00 PM), For any Queries call - +91 9863404623
-            </marquee>
-        </div>
-    </div>
-      <section class="noticeSec">
-    <div class="container">
-        <div class="noticeCon">
-            <marquee class="mb-0">
-              Supplimantary Online Form Fillup Opening Soon
-            </marquee>
-        </div>
-    </div>
+
+  <div class="login-container">
+    <h2>Login to Admin Panel</h2>
+    <form id="loginForm">
+      <div class="error" id="errorMsg">Invalid username or password</div>
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Simple hardcoded check - replace with your own authentication logic
+      if (username === '1234' && password === '1234') {
+        // Redirect to dashboard page
+        window.location.href = 'dashboard.html';
+      }
+      if (username === 'EX101' && password === 'EX101') {
+        // Redirect to dashboard page
+        window.location.href = 'dashboard.html';
+      else {
+        // Show error message
+        errorMsg.style.display = 'block';
+      }
+    });
+  </script>
+
 </body>
 </html>
