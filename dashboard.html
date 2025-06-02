@@ -17,6 +17,175 @@
 </head>
 <body>
   <h1>Welcome to Digital Computer Academy!</h1>
-  <p>Opening Soon.</p>
+  <p><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exam Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .form-container {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      width: 400px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0077cc;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #005fa3;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background-color: #003d66;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+<header>
+    <h1>Digital Computer  Academy, Agartala</h1>
+    <p>For Any Others Inquirey. Please Contact Our Support Team, 9863404623</p>
+</header>
+<section class="noticeSec">
+    <div class="container">
+        <div class="noticeCon">
+            <marquee class="mb-0">
+                Enter your roll number, Match your Data, Select your exam and Screenshot this page with application Id. Screenshot Share Your Exam Cordinate
+            </marquee>
+        </div>
+    </div>
+</section>
+<nav>
+ <font color="white"> 
+ <section class="noticeSec">
+    <div class="container">
+        <div class="noticeCon">
+            <marquee class="mb-0">
+               Exam Form now Live (Last Date : 15/07/2025)
+            </marquee>
+        </div>
+    </div>
+</section>
+ </font>
+</nav>
+  <h2>Enter Roll Number</h2>
+  <input type="text" id="rollNoInput" placeholder="Enter Roll Number" />
+  <button onclick="generateForm()">Show Exam Form</button>
+
+  <div id="examForm" class="form-container" style="display:none;"></div>
+
+  <script>
+    // Sample student data (simulate a database)
+    const students = {
+      'EX101': { name: 'Punam Gour', course: 'DCA', year: '12 Months' },
+      '102': { name: 'Bob Smith', course: 'B.A History', year: '3rd Year' },
+      '103': { name: 'Charlie Brown', course: 'B.Com', year: '1st Year' }
+    };
+
+    function generateAppId() {
+      // Generate a random 8-digit application ID
+      return 'APP' + Math.floor(10000000 + Math.random() * 90000000);
+    }
+
+    function generateForm() {
+      const rollNo = document.getElementById('rollNoInput').value.trim();
+      const formDiv = document.getElementById('examForm');
+
+      if (!rollNo) {
+        alert('Please enter a roll number.');
+        formDiv.style.display = 'none';
+        return;
+      }
+
+      const student = students[rollNo];
+      if (!student) {
+        alert('No student found with this roll number.');
+        formDiv.style.display = 'none';
+        return;
+      }
+
+      const appId = generateAppId();
+
+      formDiv.style.display = 'block';
+      formDiv.innerHTML = `
+        <h3>Exam Form</h3>
+        <p><strong>Application ID:</strong> ${appId}</p>
+        <p><strong>Roll Number:</strong> ${rollNo}</p>
+        <p><strong>Name:</strong> ${student.name}</p>
+        <p><strong>Course:</strong> ${student.course}</p>
+        <p><strong>Duration:</strong> ${student.year}</p>
+        
+        <label for="examSubject">Select Exam:</label>
+        <select id="examSubject">
+          <option value="Maths">DCA First Term Examination 2025</option>
+          <option value="Physics">DCA Second Term Examination 2025</option>
+          <option value="Chemistry">DCA Third Term Examination 2025</option>
+          <option value="History">DCA Fourth Term Examination 2025</option>
+          <option value="Economics">DCA Final 2025-26</option>
+        </select>
+        
+        <button onclick="printForm()">Print Form</button>
+      `;
+    }
+
+    function printForm() {
+      const formContent = document.getElementById('examForm').innerHTML;
+      const printWindow = window.open('', '', 'width=600,height=600');
+      printWindow.document.write('<html><head><title>Print Exam Form</title></head><body>');
+      printWindow.document.write(formContent);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+      printWindow.close();
+    }
+  </script>
+
+</body>
+</html>
+</p>
 </body>
 </html>
