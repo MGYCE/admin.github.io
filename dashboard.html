@@ -183,7 +183,62 @@
       printWindow.close();
     }
   </script>
+ <script>
+    // Simulated backend data
+    const examData = {
+      'EX119': [
+        { exam: 'First Term (Back)', applicationId: '10-06-2025' },
+        { exam: 'Second Term', applicationId: 'Exam Date not Found' }
+      ],
+      'EX121': [
+        { exam: 'First Term (Back)', applicationId: '10-06-2025' }
+      ]
+    };
 
+    function getExams() {
+      const rollNo = document.getElementById('rollNo').value;
+      const examSelect = document.getElementById('examSelect');
+      const appIdDisplay = document.getElementById('appId');
+
+      // Clear previous values
+      examSelect.innerHTML = '<option value="">-- Select Exam --</option>';
+      appIdDisplay.textContent = '';
+
+      if (examData[rollNo]) {
+        examData[rollNo].forEach((entry, index) => {
+          const option = document.createElement('option');
+          option.value = entry.applicationId;
+          option.text = entry.exam;
+          examSelect.add(option);
+        });
+      } else {
+        alert('No exams found for this roll number.');
+      }
+    }
+
+    function showAppId() {
+      const examSelect = document.getElementById('examSelect');
+      const appIdDisplay = document.getElementById('appId');
+      const appId = examSelect.value;
+      appIdDisplay.textContent = appId ? `Exam Date: ${appId}` : '';
+    }
+  </script>
+</head>
+<body>
+  <h2>Enter Roll Number to Get Exam Details</h2>
+  
+  <label for="rollNo">Roll Number:</label>
+  <input type="text" id="rollNo" name="rollNo">
+  <button onclick="getExams()">Get Exams</button>
+  
+  <br><br>
+  
+  <label for="examSelect">Select Exam:</label>
+  <select id="examSelect" onchange="showAppId()">
+    <option value="">-- Select Exam --</option>
+  </select>
+  
+  <p id="appId"></p>
 </body>
 </html>
 </p>
