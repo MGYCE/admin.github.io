@@ -87,4 +87,90 @@
       }
     });
   </script>
+      <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    input {
+      padding: 8px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Check Student Payment Status</h1>
+  <input type="text" id="studentIdInput" placeholder="Enter Student ID">
+  <button onclick="checkPaymentStatus()">Check Status</button>
+
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Payment Status</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <!-- Rows will be inserted here -->
+    </tbody>
+  </table>
+
+  <script>
+    // Example student data
+    const students = [
+      { id: "EX101", name: "Punam Gour", status: "Paid (1 Month)" },
+      { id: "S002", name: "Bob Smith", status: "Pending" },
+      { id: "S003", name: "Clara Lopez", status: "Paid" },
+      { id: "S004", name: "David Kim", status: "Unpaid" }
+    ];
+
+    function checkPaymentStatus() {
+      const input = document.getElementById("studentIdInput").value.trim().toUpperCase();
+      const tableBody = document.getElementById("tableBody");
+      tableBody.innerHTML = ""; // Clear previous results
+
+      const filtered = students.filter(student => student.id.includes(input));
+
+      if (filtered.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="3">No matching student found.</td></tr>`;
+      } else {
+        filtered.forEach(student => {
+          const row = `<tr>
+            <td>${student.id}</td>
+            <td>${student.name}</td>
+            <td>${student.status}</td>
+          </tr>`;
+          tableBody.innerHTML += row;
+        });
+      }
+    }
+  </script>
+  <section class="noticeSec">
+    <div class="container">
+        <div class="noticeCon">
+            <marquee class="mb-0">
+                Government of Tripura Health & Family Welfare Department National
+                Health Mission State Health & Family Welfare Society Tripura Palace
+                Compound, Agartala
+            </marquee>
+        </div>
+    </div>
+</section>
+
+</body>
 </head>
