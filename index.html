@@ -56,7 +56,7 @@
 <body>
 
   <div class="login-container">
-    <h2>Login to Admin Panel</h2>
+    <h2>Login to Student Panel</h2>
     <form id="loginForm">
       <div class="error" id="errorMsg">Invalid username or password</div>
       <input type="text" id="username" placeholder="Username" required />
@@ -79,11 +79,7 @@
       if (username === '1234' && password === '1234') {
         // Redirect to dashboard page
         window.location.href = 'dashboard.html';
-      }
-      if (username === 'EX101' && password === 'EX101') {
-        // Redirect to dashboard page
-        window.location.href = 'dashboard.html';
-      else {
+      } else {
         // Show error message
         errorMsg.style.display = 'block';
       }
